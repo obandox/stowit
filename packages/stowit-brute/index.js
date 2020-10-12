@@ -46,7 +46,8 @@ const brute = async (pattern) => {
     const response = await axios.get(url.href).catch((error) => error.response);
     if (response.status === 429) {
       console.log("TOO MANY REQUEST AT " + url.href);
-      await sleep(120);
+      await sleep(60);
+      continue;
     }
     if (response.status >= 500) {
       console.log("ERROR WITH " + url.href);
@@ -61,7 +62,7 @@ const brute = async (pattern) => {
       statusTexT: response.statusText,
       headers: response.headers,
     });
-    console.log("resolved: ", url.href);
+    console.log(response.status+" resolved: ", url.href);
     currentIndex += 1;
   }
 };
